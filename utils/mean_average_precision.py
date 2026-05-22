@@ -1,6 +1,6 @@
 import torch
 from collections import Counter
-from intersection_over_union import IntersectionOverUnion
+from utils.intersection_over_union import IntersectionOverUnion
 
 def MeanAveragePrecision(
         pred_boxes,

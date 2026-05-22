@@ -1,11 +1,11 @@
 import torch
-from intersection_over_union import IntersectionOverUnion
+from utils.intersection_over_union import IntersectionOverUnion
 
-def NonMaxSuppression( predictions, iou_threshold, prob_threshold, box_format="corners"):
+def NonMaxSuppression( predictions, iou_threshold, threshold, box_format="corners"):
     #prediction = list = [[class, probablity, x1, y1, x2, y2],]
 
     assert type(predictions) == list
-    bboxes = [box for box in predictions if box[1] > prob_threshold]
+    bboxes = [box for box in predictions if box[1] > threshold]
     bboxes_after_nms = []
     bboxes = sorted(bboxes, key = lambda x: x[1], reverse = True)
     while bboxes:

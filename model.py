@@ -37,9 +37,9 @@ class CNNBlock(nn.Module):
     def forward(self,x):
         return self.leakyrelu(self.batchnorm(self.conv(x)))
     
-class YoLov1(nn.Module):
+class Yolov1(nn.Module):
     def __init__ (self,in_channels=3,**kwargs):
-        super(YoLov1,self).__init__()
+        super(Yolov1,self).__init__()
         self.architecture = architecture_config
         self.in_channels = in_channels
         self.darknet = self._create_conv_layers(self.architecture)
@@ -99,14 +99,14 @@ class YoLov1(nn.Module):
         return nn.Sequential(
             nn.Flatten(),
             nn.Linear(1024 * S * S, 512), # original paper had this to be 4096
-            nn.Dropout(0.5),
+            nn.Dropout(0.0),
             nn.LeakyReLU(0.1),
             nn.Linear(512, S*S*(C + B*5)), # (S,S,30)
 
         )
     
 def test(S = 7, B = 2, C = 20):
-    model = YoLov1(split_size = S,num_boxes = B,num_classes = C)
+    model = Yolov1(split_size = S,num_boxes = B,num_classes = C)
     x = torch.randn((2,3,448,448))
     print(model(x).shape)
 
